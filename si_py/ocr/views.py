@@ -15,4 +15,68 @@ from django.views import generic
 
 # generic views # Step 3
 class IndexView(generic.TemplateView):
-    template_name = 'ocr/index.html'
+    images = getImages()
+    template_name = 'ocr/index.pug'
+
+def getImages():
+  images = [
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-1.jpg',
+    },
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-2.jpg',
+    },
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-3.jpg',
+    },
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-4.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-5.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-6.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-7.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-8.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-9.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-10.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-12.jpg',
+    },
+
+    {
+      'thumbnail': 'http://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg',
+      'image': 'http://sachinchoolur.github.io/lightslider/img/cS-13.jpg',
+    },
+  ]
+
+  return images
+}

@@ -1,0 +1,27 @@
+{% extends 'ocr/layout.pug' %}
+| {% load static %}
+block page_css
+  link(rel='stylesheet', href="{% static '/ocr/css/lightslider.min.css'%}")
+  link(rel='stylesheet', href="{% static '/ocr/css/pages/home.css'%}")
+
+block content
+  section.content
+    .row
+      .col-md-12
+        .box.box-primary
+          .box-header
+            i.fa.fa-home
+            h3.box-title SI Automation
+          .box-body
+            ul#lightSlider
+              //each image, idx in images
+                li(data-thumb=image.thumbnail, data-title="Image "+(idx+1), data-position="x:100,y:100", data-text="Fake text")
+                  img(src=image.image)
+              li(data-thumb='http://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg', data-title="Image test", data-position="x:100,y:100", data-text="Fake text")
+                  img(src='http://sachinchoolur.github.io/lightslider/img/cS-1.jpg')
+              li(data-thumb='http://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg', data-title="Image test", data-position="x:100,y:100", data-text="Fake text")
+                  img(src='http://sachinchoolur.github.io/lightslider/img/cS-2.jpg')
+
+block page_script
+  script(src="{% static '/ocr/js/lightslider.min.js'%}")
+  script(src="{% static '/ocr/js/pages/home.js'%}")
