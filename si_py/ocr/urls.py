@@ -6,8 +6,8 @@ urlpatterns = [
     # ex: /ocr/
     # url(r'^$', views.index, name='index'),
     url(r'^$', views.IndexView.as_view(), name='index'),
-    # ex: /polls/5
-    # url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    # ex: /ocr/upload/
+    url(r'^upload/$', views.UploadView.as_view(), name='upload'),
     # # ex: /polls/5/results/
     # url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     # ex: /polls/5/vote/

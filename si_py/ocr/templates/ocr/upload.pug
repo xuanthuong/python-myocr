@@ -1,0 +1,32 @@
+{% extends 'ocr/layout.pug' %}
+| {% load static %}
+block page_css
+  link(rel='stylesheet', href="{% static '/ocr/css/dropzone.css' %}")
+  link(rel='stylesheet', href="{% static '/ocr/css/custom.css' %}")
+block content
+  section.content
+    .row
+      .col-md-2
+        .box.box-primary
+          .box-header
+            i.fa.fa-home
+            h3.box-title Upload New file
+          .box-body
+            #dropzone
+              form#upload-widget.dropzone.needsclick.dz-clickable(method='post', action='/ocr/upload/')
+                .fallback
+                  input.dz-hidden-input(name='file', type='file', multiple='multiple', style='visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;')
+                .dz-message.needsclick
+                  | Drop files here or click to upload.
+                  br
+                  span.note.needsclick
+                    | (Images or PDFs are available)
+
+      .col-md-10(style="overflow: auto")
+        .row#body(style="position: relative; padding: 0px;")
+          img#fullimg(src="http://sachinchoolur.github.io/lightslider/img/cS-1.jpg")
+
+
+block page_script
+  script(src="{% static '/ocr/js/dropzone.js' %}")
+  script(src="{% static '/ocr/js/pages/upload.js' %}")
