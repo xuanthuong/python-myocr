@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     # ex: /ocr/upload/
     url(r'^upload/$', views.UploadView.as_view(), name='upload'),
+    # ex: /ocr/result/
+    url(r'^result/$', views.ResultView.as_view(), name='result'),
     # # ex: /polls/5/results/
     # url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     # ex: /polls/5/vote/

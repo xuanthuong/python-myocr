@@ -24,9 +24,10 @@ block content
 
       .col-md-10(style="overflow: auto")
         .row#body(style="position: relative; padding: 0px;")
-          img#fullimg(src="http://sachinchoolur.github.io/lightslider/img/cS-1.jpg")
+          //img#fullimg(src=testimg['image'])
+          img(src=testimg['image'])
 
 
 block page_script
   script(src="{% static '/ocr/js/dropzone.js' %}")
-  script(src="{% static '/ocr/js/pages/upload.js' %}")
+  //script(src="{% static '/ocr/js/pages/upload.js' %}")

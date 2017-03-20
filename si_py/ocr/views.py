@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.response import TemplateResponse
@@ -6,6 +7,9 @@ from django.urls import reverse
 from django.views import generic
 #from django.views.decorators.csrf import csrf_exempt, csrf_protect
 #from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core.files.storage import FileSystemStorage
+
+from helper import helper
 
 #def index(request):
     #context = {
@@ -85,17 +89,35 @@ class IndexView(generic.TemplateView):
 class UploadView(generic.TemplateView):
     template_name = 'ocr/upload.pug'
     def get(self, request, *args, **kwargs):
-        #print 'Handling get request'
         response = TemplateResponse(request, self.template_name) # . vs render shortcut
         return response
     
     #@ensure_csrf_cookie
     def post(self, request, *args, **kwargs):
-        print 'Handling post request'
-        return HttpResponse('Processing uploaded file')
-        #response = TemplateResponse(request, self.template_name)
-        #return response 
+        uploadDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.uploads')
+        print(uploadDir)
+        fs = FileSystemStorage(uploadDir)
+        uploadedFile = request.FILES['file']
+        filename = fs.save(uploadedFile.name, uploadedFile)
+        uploaded_file_url = fs.url(filename)
+        result = helper.handle_uploaded_file(os.path.join(uploadDir, uploaded_file_url))
+        print(result)
+
+        return HttpResponseRedirect('/ocr/result')    
     
+    def get_context_data(self, **kwargs):
+        context = super(UploadView, self).get_context_data(**kwargs)
+        textimg = {'image': 'http://sachinchoolur.github.io/lightslider/img/cS-13.jpg'}
+        context['testimg'] = testimg
+        return context
+
     #@csrf_protect
     #def handler(request):
-    # Process request
+    # Process request    
+
+class ResultView(generic.TemplateView):
+    template_name = 'ocr/result.pug'    
+    #def get(self, request, *args, **kwargs):
+        #print 'show ocr result'
+        #response = TemplateResponse(request, self.template_name)
+        #return response
