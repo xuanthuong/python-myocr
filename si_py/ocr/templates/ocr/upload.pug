@@ -1,5 +1,6 @@
 {% extends 'ocr/layout.pug' %}
 | {% load static %}
+//{% url 'result' %}
 block page_css
   link(rel='stylesheet', href="{% static '/ocr/css/dropzone.css' %}")
   link(rel='stylesheet', href="{% static '/ocr/css/custom.css' %}")
@@ -27,7 +28,10 @@ block content
           //img#fullimg(src=testimg['image'])
           img(src=testimg['image'])
 
-
+    .row
+      .panel-body
+        form(method="POST", action="/ocr/upload/")
+          button(type="submit") Click Me
 block page_script
   script(src="{% static '/ocr/js/dropzone.js' %}")
-  //script(src="{% static '/ocr/js/pages/upload.js' %}")
+  script(src="{% static '/ocr/js/pages/upload.js' %}")
