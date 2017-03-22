@@ -11,6 +11,7 @@ Dropzone.options.uploadWidget = {
 
 
 function onUploadSuccess(file, res) {
-  window.location.href = '/ocr/result';
+  var redirectTo = res.redirectTo;
+  window.location.href = redirectTo;
 }
 
