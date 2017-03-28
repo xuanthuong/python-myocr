@@ -89,13 +89,20 @@ class IndexView(generic.TemplateView):
 
 class UploadView(generic.TemplateView):
     template_name = 'ocr/upload.pug'
+    
+    def get_context_data(self, **kwargs):
+        context = super(UploadView, self).get_context_data(**kwargs)
+        testimg = {'image': 'http://sachinchoolur.github.io/lightslider/img/cS-13.jpg'}
+        context['testimg'] = testimg
+        return context
+
     def get(self, request, *args, **kwargs):
         response = TemplateResponse(request, self.template_name) # . vs render shortcut
         return response
     
     # @ensure_csrf_cookie
     def post(self, request, *args, **kwargs):
-        # uploadDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.uploads')
+        uploadDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.uploads')
         # print(uploadDir)
         # fs = FileSystemStorage(uploadDir)
         # uploadedFile = request.FILES['file']
@@ -105,16 +112,12 @@ class UploadView(generic.TemplateView):
         
         # return HttpResponseRedirect(reverse('ocr: result')) #same with shortcut redirect  
         # return redirect('/ocr/result/')
-        return JsonResponse({
-          'abc': 'def',
-          'redirectTo': '/ocr/result'
-        })
-    
-    def get_context_data(self, **kwargs):
-        context = super(UploadView, self).get_context_data(**kwargs)
-        textimg = {'image': 'http://sachinchoolur.github.io/lightslider/img/cS-13.jpg'}
-        context['testimg'] = testimg
-        return context
+        # return JsonResponse({
+        #   'abc': 'def',
+        #   'redirectTo': '/ocr/result'
+        # })
+        response = TemplateResponse(request, self.template_name, self.get_context_data()) 
+        return response
 
     # @csrf_protect
     # def handler(request):
