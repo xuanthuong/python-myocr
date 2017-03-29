@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 
 from helper import helper
 from django.http import JsonResponse
+from datetime import datetime
 
 
 #def index(request):
@@ -102,7 +103,9 @@ class UploadView(generic.TemplateView):
     # @ensure_csrf_cookie
     def post(self, request, *args, **kwargs):
         uploadDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.uploads')
-        # print(uploadDir)
+        uniq_dir = datetime.now().strftime('%Y%m%d%H%M%S') #2017.03.29.21.30.45
+        os.mkdir(os.path.join(uploadDir, uniq_dir))
+        uploadDir = os.path.join(uploadDir, uniq_dir)
         fs = FileSystemStorage(uploadDir)
         uploadedFile = request.FILES['file']
         filename = fs.save(uploadedFile.name, uploadedFile)
