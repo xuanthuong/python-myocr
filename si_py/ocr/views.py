@@ -92,8 +92,7 @@ class UploadView(generic.TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super(UploadView, self).get_context_data(**kwargs)
-        testimg = {'image': 'http://sachinchoolur.github.io/lightslider/img/cS-13.jpg'}
-        context['testimg'] = testimg
+        context['result'] = {'result': self.result}
         return context
 
     def get(self, request, *args, **kwargs):
@@ -104,20 +103,20 @@ class UploadView(generic.TemplateView):
     def post(self, request, *args, **kwargs):
         uploadDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.uploads')
         # print(uploadDir)
-        # fs = FileSystemStorage(uploadDir)
-        # uploadedFile = request.FILES['file']
-        # filename = fs.save(uploadedFile.name, uploadedFile)
-        # uploaded_file_url = fs.url(filename)
-        # result = helper.handle_uploaded_file(os.path.join(uploadDir, uploaded_file_url))  
-        
+        fs = FileSystemStorage(uploadDir)
+        uploadedFile = request.FILES['file']
+        filename = fs.save(uploadedFile.name, uploadedFile)
+        uploaded_file_url = fs.url(filename)
+        self.result = helper.handle_uploaded_file(os.path.join(uploadDir, uploaded_file_url))  
+        request.session['result'] = self.result
         # return HttpResponseRedirect(reverse('ocr: result')) #same with shortcut redirect  
         # return redirect('/ocr/result/')
-        # return JsonResponse({
-        #   'abc': 'def',
-        #   'redirectTo': '/ocr/result'
-        # })
-        response = TemplateResponse(request, self.template_name, self.get_context_data()) 
-        return response
+        # response = TemplateResponse(request, self.template_name, self.get_context_data()) 
+        # return response
+        return JsonResponse({
+          'abc': 'def',
+          'redirectTo': '/ocr/result'
+        })        
 
     # @csrf_protect
     # def handler(request):
@@ -125,8 +124,17 @@ class UploadView(generic.TemplateView):
 
 class ResultView(generic.TemplateView):
     template_name = 'ocr/result.pug'    
+
+    def get_context_data(self, **kwargs):
+        context = super(ResultView, self).get_context_data(**kwargs)
+        context['result'] = {'result': self.result}        
+        return context
+
     def get(self, request, *args, **kwargs):
-        response = TemplateResponse(request, self.template_name)
+        self.result = request.session.get('result', 'no result')
+        response = TemplateResponse(request, self.template_name, self.get_context_data())
+        if 'result' in request.session:
+            del request.session['result']
         return response
 
     def post(self, request, *args, **kwargs):
